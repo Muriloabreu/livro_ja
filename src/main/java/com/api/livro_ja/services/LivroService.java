@@ -1,13 +1,15 @@
 package com.api.livro_ja.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.UUID;
 
-import com.api.livro_ja.repositories.LivroRepository;
+import com.api.livro_ja.models.LivroModel;
 
-@Service
-public class LivroService {
+public interface LivroService {
+	
+	List<LivroModel> findAll();
+	LivroModel findById(UUID id);
+	LivroModel save(LivroModel livro);
+	void deleteLivro(LivroModel livro);
 
-	@Autowired /* Ponto de injeção*/
-	LivroRepository livroRepository;
 }
