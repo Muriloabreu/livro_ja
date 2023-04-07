@@ -31,6 +31,7 @@ public class LivroModel implements Serializable {
 	private int paginas;
 	@Column(nullable = false, unique = true, length = 30)
 	private String genero;
+	
 	public UUID getId() {
 		return id;
 	}
