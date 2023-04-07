@@ -26,7 +26,7 @@ public class LivroController {
 	
 	@PostMapping
 	public ResponseEntity<Object> saveLivro(@RequestBody @Valid LivroDtos livroDtos){
-		if (livroService.existsbytitulo(livroDtos.getTitulo())) {
+		if (livroService.existsBytitulo(livroDtos.getTitulo())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Livro já está cadastrado!"); /* Check se livro já está cadastrada */
 		}
 		LivroModel livroModel = new LivroModel();
