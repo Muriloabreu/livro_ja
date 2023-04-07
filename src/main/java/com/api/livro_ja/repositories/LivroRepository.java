@@ -9,5 +9,6 @@ import com.api.livro_ja.models.LivroModel;
 
 @Repository
 public interface LivroRepository extends JpaRepository<LivroModel, UUID>{
-
+	
+	boolean existsbytitulo(String titulo);
 }
