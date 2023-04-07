@@ -43,4 +43,10 @@ public class LivroServiceImpl implements LivroService{
 		
 	}
 
+	@Override
+	public boolean existsbytitulo(String titulo) {
+		
+		return livroRepository.existsbytitulo(titulo);
+	}
+
 }
