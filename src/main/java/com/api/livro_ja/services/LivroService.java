@@ -11,5 +11,6 @@ public interface LivroService {
 	LivroModel findById(UUID id);
 	LivroModel save(LivroModel livro);
 	void deleteLivro(LivroModel livro);
+	boolean existsbytitulo(String titulo);
 
 }
