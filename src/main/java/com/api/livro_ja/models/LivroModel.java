@@ -19,7 +19,7 @@ public class LivroModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
-	@Column(nullable = false, unique = true, length = 50)
+	@Column(nullable = false, unique = true, length = 100)
 	private String titulo;
 	@Column(nullable = false, unique = true, length = 30)
 	private String autor;

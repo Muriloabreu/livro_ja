@@ -1,11 +1,14 @@
 package com.api.livro_ja.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +33,14 @@ public class LivroController {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Livro já está cadastrado!"); /* Check se livro já está cadastrada */
 		}
 		LivroModel livroModel = new LivroModel();
-		BeanUtils.copyProperties(livroDtos, livroModel);
+		BeanUtils.copyProperties(livroDtos, livroModel); /*Coverte Dtos para Model*/
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(livroService.save(livroModel));
 	}
 	
-	
+	@GetMapping
+	public ResponseEntity<List<LivroModel>>getAllLivro(){
+		return ResponseEntity.status(HttpStatus.OK).body(livroService.findAll());
+	}
 
 }
