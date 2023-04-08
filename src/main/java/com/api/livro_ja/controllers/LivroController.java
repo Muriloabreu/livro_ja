@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.api.livro_ja.dtos.LivroDtos;
 import com.api.livro_ja.models.LivroModel;
 import com.api.livro_ja.services.LivroService;
-import com.api.parkingcontrol.dtos.ParkingSpotDto;
-import com.api.parkingcontrol.models.ParkingSpotModel;
+
 
 import jakarta.validation.Valid;
 
