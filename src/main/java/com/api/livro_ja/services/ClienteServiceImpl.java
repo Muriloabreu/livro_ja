@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.livro_ja.models.ClienteModel;
+import com.api.livro_ja.repositories.ClienteRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -15,38 +16,38 @@ import jakarta.transaction.Transactional;
 public class ClienteServiceImpl implements ClienteService{
 	
 	@Autowired
-	ClienteService clienteService;
+	ClienteRepository clienteRepository;
 
 	@Override
 	public List<ClienteModel> findAll() {
 		
-		return clienteService.findAll();
+		return clienteRepository.findAll();
 	}
 
 	@Override
 	public Optional<ClienteModel> findById(UUID id) {
 		
-		return clienteService.findById(id);
+		return clienteRepository.findById(id);
 	}
 
 	@Override
 	@Transactional
 	public ClienteModel save(ClienteModel cliente) {
 		
-		return clienteService.save(cliente);
+		return clienteRepository.save(cliente);
 	}
 
 	@Override
 	@Transactional
 	public void deleteCliente(ClienteModel cliente) {
 		
-		clienteService.deleteCliente(cliente);
+		clienteRepository.delete(cliente);
 	}
 
 	@Override
 	public boolean existsByCpf(String cpf) {
 		
-		return clienteService.existsByCpf(cpf);
+		return clienteRepository.existsByCpf(cpf);
 	}
 
 }
