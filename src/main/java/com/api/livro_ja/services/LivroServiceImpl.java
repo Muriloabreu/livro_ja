@@ -38,9 +38,10 @@ public class LivroServiceImpl implements LivroService{
 	}
 
 	@Override
+	@Transactional
 	public void deleteLivro(LivroModel livro) {
 		
-		livroRepository.delete(null);
+		livroRepository.delete(livro);
 		
 	}
 
