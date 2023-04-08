@@ -1,6 +1,7 @@
 package com.api.livro_ja.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,9 @@ public class LivroServiceImpl implements LivroService{
 	}
 
 	@Override
-	public LivroModel findById(UUID id) {
+	public Optional<LivroModel> findById(UUID id) {
 		
-		return livroRepository.findById(id).get();
+		return livroRepository.findById(id);
 	}
 
 	@Override
