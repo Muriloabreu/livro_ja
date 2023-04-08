@@ -1,6 +1,8 @@
 package com.api.livro_ja.controllers;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.api.livro_ja.dtos.LivroDtos;
 import com.api.livro_ja.models.LivroModel;
 import com.api.livro_ja.services.LivroService;
+
 
 import jakarta.validation.Valid;
 
@@ -39,8 +43,29 @@ public class LivroController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<LivroModel>>getAllLivro(){
+	public ResponseEntity<List<LivroModel>>getAllLivros(){
 		return ResponseEntity.status(HttpStatus.OK).body(livroService.findAll());
 	}
 
+	@GetMapping("/{id}")
+	public ResponseEntity<Object> getOneLivro(@PathVariable(value = "id") UUID id) {
+
+		Optional<LivroModel> livroOptional = livroService.findById(id);
+
+		if (!livroOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Livro não encontrado. "); /*Mensagem se o livro não for encontrado */
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(livroOptional.get());
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
