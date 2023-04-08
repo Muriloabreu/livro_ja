@@ -14,13 +14,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.api.livro_ja.dtos.LivroDtos;
 import com.api.livro_ja.models.LivroModel;
 import com.api.livro_ja.services.LivroService;
-
+import com.api.parkingcontrol.dtos.ParkingSpotDto;
+import com.api.parkingcontrol.models.ParkingSpotModel;
 
 import jakarta.validation.Valid;
 
@@ -72,7 +74,26 @@ public class LivroController {
 
 	}
 	
-	
+	@PutMapping("/{id}")
+	public ResponseEntity<Object> updateLivro(@PathVariable(value = "id") UUID id,
+			                                        @RequestBody @Valid LivroDtos livroDto) {
+
+		Optional<LivroModel> livroModelOptional = livroService.findById(id);
+		if (!livroModelOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Livro não encontrado. ");
+		}
+		
+		var livroModel = livroModelOptional.get();
+		livroModel.setTitulo(livroDto.getTitulo());
+		livroModel.setAutor(livroDto.getAutor());
+		livroModel.setLingua(livroDto.getLingua());
+		livroModel.setEditora(livroDto.getEditora());
+		livroModel.setPaginas(livroDto.getPaginas());
+		livroModel.setGenero(livroDto.getGenero());
+				
+		return ResponseEntity.status(HttpStatus.OK).body(livroService.save(livroModel));
+
+	}
 	
 	
 	
