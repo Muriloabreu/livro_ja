@@ -10,4 +10,5 @@ import com.api.livro_ja.models.ClienteModel;
 @Repository
 public interface ClienteRepository extends JpaRepository<ClienteModel, UUID>{
 
+	boolean existsByCpf(String cpf);
 }
