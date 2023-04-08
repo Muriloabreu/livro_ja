@@ -23,13 +23,13 @@ public class LivroModel implements Serializable {
 	private String titulo;
 	@Column(nullable = false, unique = true, length = 30)
 	private String autor;
-	@Column(nullable = false, unique = true, length = 30)
+	@Column(nullable = false,  length = 30)
 	private String lingua;
-	@Column(nullable = false, unique = true, length = 30)
+	@Column(nullable = false,  length = 30)
 	private String editora;
-	@Column(nullable = false, unique = true, length = 10)
+	@Column(nullable = false,  length = 10)
 	private int paginas;
-	@Column(nullable = false, unique = true, length = 30)
+	@Column(nullable = false,  length = 30)
 	private String genero;
 	
 	public UUID getId() {
