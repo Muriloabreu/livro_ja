@@ -1,6 +1,8 @@
 package com.api.livro_ja.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -8,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,6 +35,10 @@ public class LivroModel implements Serializable {
 	private int paginas;
 	@Column(nullable = false,  length = 30)
 	private String genero;
+	
+	@OneToMany(mappedBy = "livro")
+	private List<AluguelModel> alugueis = new ArrayList<>();
+	
 	
 	public UUID getId() {
 		return id;
