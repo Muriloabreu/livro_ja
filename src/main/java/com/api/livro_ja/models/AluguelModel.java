@@ -1,6 +1,8 @@
 package com.api.livro_ja.models;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -25,6 +27,10 @@ private static final long serialVersionUID = 1L;
 	@OneToOne
 	private ClienteModel cliente;
 	
+	@Column(nullable = false)
+	private LocalDateTime dataInicio;
+	@Column(nullable = false,  length = 10)
+	private Date dataFim;
 	public UUID getId() {
 		return id;
 	}
@@ -43,25 +49,23 @@ private static final long serialVersionUID = 1L;
 	public void setCliente(ClienteModel cliente) {
 		this.cliente = cliente;
 	}
-	public String getDataInicio() {
+	
+	public LocalDateTime getDataInicio() {
 		return dataInicio;
 	}
-	public void setDataInicio(String dataInicio) {
+	public void setDataInicio(LocalDateTime dataInicio) {
 		this.dataInicio = dataInicio;
 	}
-	public String getDataFim() {
+	public Date getDataFim() {
 		return dataFim;
 	}
-	public void setDataFim(String dataFim) {
+	public void setDataFim(Date dataFim) {
 		this.dataFim = dataFim;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	@Column(nullable = false,  length = 10)
-	private String dataInicio;
-	@Column(nullable = false,  length = 10)
-	private String dataFim;
+	
 	
 	
 	
