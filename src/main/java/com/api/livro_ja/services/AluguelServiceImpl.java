@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.livro_ja.dtos.AluguelDtos;
+import com.api.livro_ja.dtos.AluguelDtosResponse;
 import com.api.livro_ja.models.AluguelModel;
 import com.api.livro_ja.models.ClienteModel;
 import com.api.livro_ja.models.LivroModel;
@@ -43,14 +45,15 @@ public class AluguelServiceImpl implements AluguelService{
 
 	
 	@Transactional
-	public AluguelModel save( AluguelDtos aluguelDtos) {
+	public AluguelDtosResponse save( AluguelDtos aluguelDtos) {
 		LivroModel livro = livroRepository.findById(aluguelDtos.getLivroId()).get();
 		ClienteModel cliente = clienteRepository.findById(aluguelDtos.getClienteId()).get();
 		
 		AluguelModel aluguelLivro = new AluguelModel(livro, cliente, LocalDateTime.now(ZoneId.of("UTC")), aluguelDtos.getDataFim());
 		aluguelRepository.save(aluguelLivro);
 		
-		return aluguelLivro;
+		
+		return new AluguelDtosResponse(aluguelLivro);
 	}
 
 	@Override

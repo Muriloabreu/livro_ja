@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.api.livro_ja.dtos.AluguelDtos;
+import com.api.livro_ja.dtos.AluguelDtosResponse;
 import com.api.livro_ja.models.AluguelModel;
 import com.api.livro_ja.models.ClienteModel;
 import com.api.livro_ja.models.LivroModel;
@@ -38,10 +39,10 @@ public class AluguelController {
 	
 	
 	@PostMapping
-	public ResponseEntity<AluguelModel> saveAluguel(@RequestBody @Valid AluguelDtos aluguelDtos ){
+	public ResponseEntity<AluguelDtosResponse> saveAluguel(@RequestBody @Valid AluguelDtos aluguelDtos ){
 		
 		System.out.println(aluguelDtos);
-		AluguelModel model = aluguelService.save(aluguelDtos);
+		AluguelDtosResponse model = aluguelService.save(aluguelDtos);
 		return ResponseEntity.status(HttpStatus.CREATED).body(model);
 	}
 	
