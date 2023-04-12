@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 
 @Controller
 @CrossOrigin(originPatterns = "*", maxAge = 3600) /*Para permitir ser acessado de qualquer fonte*/
-@RequestMapping("/livro-ja/cliente") /*Mapeamento a nível de classe*/
+@RequestMapping("/livro-ja/clientes") /*Mapeamento a nível de classe*/
 public class ClienteController {
 	
 	@Autowired
