@@ -16,15 +16,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.api.livro_ja.dtos.AluguelDtos;
-import com.api.livro_ja.dtos.AluguelDtosResponse;
 import com.api.livro_ja.models.AluguelModel;
-import com.api.livro_ja.models.ClienteModel;
-import com.api.livro_ja.models.LivroModel;
 import com.api.livro_ja.services.AluguelService;
 
 import jakarta.validation.Valid;
@@ -35,29 +31,32 @@ import jakarta.validation.Valid;
 public class AluguelController {
 	
 	@Autowired
-	AluguelService aluguelService;	
-	
+	AluguelService aluguelService;
 	
 	@PostMapping
-	public ResponseEntity<AluguelDtosResponse> saveAluguel(@RequestBody @Valid AluguelDtos aluguelDtos ){
+	public ResponseEntity<Object> saveAluguel(@RequestBody @Valid AluguelDtos aluguelDtos){
 		
-		System.out.println(aluguelDtos);
-		AluguelDtosResponse model = aluguelService.save(aluguelDtos);
-		return ResponseEntity.status(HttpStatus.CREATED).body(model);
+		AluguelModel aluguelModel = new AluguelModel();
+		BeanUtils.copyProperties(aluguelDtos, aluguelModel);
+		
+		aluguelModel.setDataInicio(LocalDateTime.now(ZoneId.of("UTC")));
+		return ResponseEntity.status(HttpStatus.CREATED).body(aluguelService.save(aluguelModel));
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<AluguelModel>>getAllAlguel(){
+	public ResponseEntity<List<AluguelModel>>getAllAlugueis(){
+		
 		return ResponseEntity.status(HttpStatus.OK).body(aluguelService.findAll());
 	}
-
+	
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> getOneAluguel(@PathVariable(value = "id") UUID id) {
 
 		Optional<AluguelModel> aluguelOptional = aluguelService.findById(id);
 
 		if (!aluguelOptional.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluguel não encontrado. "); /*Mensagem se o cliente não for encontrado */
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluguel não encontrado. "); /*Mensagem se o livro não for encontrado */
 		}
 
 		return ResponseEntity.status(HttpStatus.OK).body(aluguelOptional.get());
@@ -68,31 +67,11 @@ public class AluguelController {
 
 		Optional<AluguelModel> aluguelOptional = aluguelService.findById(id);
 		if (!aluguelOptional.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluguel não encontrado. "); /*Mensagem se o Cliente não for encontrado */
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluguel não encontrado. "); /*Mensagem se o livro não for encontrado */
 		}
 		aluguelService.deleteAluguel(aluguelOptional.get());
 		return ResponseEntity.status(HttpStatus.OK).body("Aluguel deletado com sucesso!");
 
 	}
-	
-//	@PutMapping("/{id}")
-//	public ResponseEntity<Object> updateAluguel(@PathVariable(value = "id") UUID id,
-//			                                        @RequestBody @Valid AluguelDtos aluguelDto) {
-//
-//		Optional<AluguelModel> aluguelModelOptional = aluguelService.findById(id);
-//		if (!aluguelModelOptional.isPresent()) {
-//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluguel não encontrado. ");
-//		}
-//		
-//		var aluguelModel = aluguelModelOptional.get();
-//		aluguelModel.setLivro(aluguelDto.getLivro());
-//		aluguelModel.setCliente(aluguelDto.getCliente());
-//		aluguelModel.setDataFim(aluguelDto.getDataFim());
-//		
-//		
-//				
-//		return ResponseEntity.status(HttpStatus.OK).body(aluguelService.save(aluguelModel));
-//
-//	}
 
 }
