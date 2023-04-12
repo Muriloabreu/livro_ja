@@ -13,7 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,19 +25,18 @@ public class AluguelModel  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;	
-	@ManyToOne
-	@JoinColumn(name = "livro_id")
+	@OneToOne
+	@JoinColumn(name = "livro_id", referencedColumnName = "id")
 	private LivroModel livro;	
-	@ManyToOne
-	@JoinColumn(name = "cliente_id")
+	@OneToOne
+	@JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private ClienteModel cliente;	
 	@Column(nullable = false)
 	private LocalDateTime dataInicio;
 	@Column(nullable = false,  length = 10)
-	private String dataFim;
+	private String dataFim;	
 	
 	
-
 	public UUID getId() {
 		return id;
 	}
@@ -70,16 +69,7 @@ public class AluguelModel  {
 		this.dataFim = dataFim;
 	}
 	
-	public AluguelModel(LivroModel livro, ClienteModel cliente, LocalDateTime dataInicio, String dataFim) {
-		super();
-		this.livro = livro;
-		this.cliente = cliente;
-		this.dataInicio = dataInicio;
-		this.dataFim = dataFim;
-	}
-	public AluguelModel() {
-		
-	}
+	
 	
 	
 	
